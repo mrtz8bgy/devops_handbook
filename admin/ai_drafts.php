@@ -56,14 +56,20 @@ try {
 } catch (Exception $e) { $err = 'جدول ai_drafts نیست — install.php را اجرا کن.'; }
 
 $st_pill = function ($st) {
-    return match ($st) {
-        'queued' => '<span class="pill">⏳ در صف</span>',
-        'ready' => '<span class="pill" style="background:rgba(47,191,113,.15);border-color:rgba(47,191,113,.5);color:#9ff0c6">✨ آماده تأیید</span>',
-        'approved' => '<span class="pill">✅ تأییدشده</span>',
-        'rejected' => '<span class="pill" style="background:rgba(229,72,93,.12);border-color:rgba(229,72,93,.5);color:#ffb3bd">✖ ردشده</span>',
-        'failed' => '<span class="pill" style="background:rgba(229,72,93,.12);border-color:rgba(229,72,93,.5);color:#ffb3bd">⚠ ناموفق</span>',
-        default => '<span class="pill">' . esc($st) . '</span>',
-    };
+    switch ($st) {
+        case 'queued':
+            return '<span class="pill">⏳ در صف</span>';
+        case 'ready':
+            return '<span class="pill" style="background:rgba(47,191,113,.15);border-color:rgba(47,191,113,.5);color:#9ff0c6">✨ آماده تأیید</span>';
+        case 'approved':
+            return '<span class="pill">✅ تأییدشده</span>';
+        case 'rejected':
+            return '<span class="pill" style="background:rgba(229,72,93,.12);border-color:rgba(229,72,93,.5);color:#ffb3bd">✖ ردشده</span>';
+        case 'failed':
+            return '<span class="pill" style="background:rgba(229,72,93,.12);border-color:rgba(229,72,93,.5);color:#ffb3bd">⚠ ناموفق</span>';
+        default:
+            return '<span class="pill">' . esc($st) . '</span>';
+    }
 };
 
 page_head('هوش مصنوعی و یادگیری');
