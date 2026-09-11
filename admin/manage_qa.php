@@ -76,7 +76,7 @@ $qa_list = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <title>مدیریت سوال و جواب چت‌بات</title>
-    <link rel="stylesheet" href="../assets/css/luxury.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css?v=3.1">
     <style>
         body {
             background: linear-gradient(135deg, #667eea, #764ba2);

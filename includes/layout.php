@@ -13,7 +13,7 @@ function page_head($title, $desc = '') {
         '<title>' . esc($title) . ' | کتابخانه DevOps</title>' .
         ($desc ? '<meta name="description" content="' . esc($desc) . '">' : '') .
         '<link rel="icon" href="' . asset('favicon.svg') . '" type="image/svg+xml">' .
-        '<link rel="stylesheet" href="' . asset('css/luxury.css') . '">' .
+        '<link rel="stylesheet" href="' . asset('css/luxury.css?v=3.1') . '">' .
         '</head><body>';
 }
 

@@ -266,7 +266,7 @@ $categories = $pdo->query("SELECT category FROM categories ORDER BY category")->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>افزودن دستور جدید</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../assets/css/luxury.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css?v=3.1">
     <style>
         .section-card {
             background: white;

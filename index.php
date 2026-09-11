@@ -28,7 +28,7 @@ try {
 <title>کتابخانه DevOps | مرجع دستورات لینوکس، داکر، کوبرنتیز و بیشتر</title>
 <meta name="description" content="مرجع فارسی دستورات DevOps: لینوکس، داکر، کوبرنتیز، گیت، شبکه، دیتابیس — با جستجوی هوشمند و چت‌بات.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/css/luxury.css">
+<link rel="stylesheet" href="assets/css/luxury.css?v=3.1">
 </head>
 <body>
 <div class="topbar"><div class="topbar-inner">
@@ -60,6 +60,11 @@ try {
         <button class="btn btn-gold" type="submit">🔍 جستجو</button>
       </form>
       <div class="suggest-drop"></div>
+    </div>
+    <div class="hero-feats">
+      <span>⚡ جستجوی هوشمند فارسی</span>
+      <span>🤖 چت‌بات پاسخ‌گو</span>
+      <span>📚 <?= fa_digits($stats['commands']) ?> دستور کاربردی</span>
     </div>
   </div>
 

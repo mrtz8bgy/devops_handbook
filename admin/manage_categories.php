@@ -51,7 +51,7 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY category")->fetchAl
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت دسته‌بندی‌ها</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../assets/css/luxury.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css?v=3.1">
     <style>
         .categories-list {
             background: white;

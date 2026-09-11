@@ -309,3 +309,235 @@ mark.hl, body mark.hl{background:linear-gradient(135deg,var(--gold),var(--gold-d
   .chat-body{height:60vh;}
   .topbar-inner{flex-wrap:wrap;}
 }
+
+/* ============================================================
+   v3.1 — ارتقای پرمیوم ظاهر ✦ فونت وزیرمتن خودمیزبان + جزئیات لوکس
+   ============================================================ */
+@font-face{font-family:'Vazirmatn';font-weight:400;font-style:normal;font-display:swap;
+  src:url('../fonts/Vazirmatn-Regular.woff2') format('woff2');}
+@font-face{font-family:'Vazirmatn';font-weight:500;font-style:normal;font-display:swap;
+  src:url('../fonts/Vazirmatn-Medium.woff2') format('woff2');}
+@font-face{font-family:'Vazirmatn';font-weight:700;font-style:normal;font-display:swap;
+  src:url('../fonts/Vazirmatn-Bold.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-weight:400;font-style:normal;font-display:swap;
+  src:url('../fonts/JetBrainsMono-Regular.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-weight:700;font-style:normal;font-display:swap;
+  src:url('../fonts/JetBrainsMono-Bold.woff2') format('woff2');}
+
+:root{
+  --mono:'JetBrains Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+  --gold-2:#f6e27a; --navy-line:rgba(212,175,55,.14);
+  --glass:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02));
+  --shadow-lg:0 24px 70px rgba(0,0,0,.55);
+  --gold-grad:linear-gradient(135deg,var(--gold-light),var(--gold) 55%,var(--gold-dark));
+}
+
+/* ---------- بافت پس‌زمینه ---------- */
+body{position:relative;z-index:0;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.9;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52'%3E%3Cpath d='M52 0H0v52' fill='none' stroke='rgba(212,175,55,.06)' stroke-width='1'/%3E%3C/svg%3E");
+  -webkit-mask-image:radial-gradient(1000px 520px at 50% 0%,#000 30%,transparent 75%);
+  mask-image:radial-gradient(1000px 520px at 50% 0%,#000 30%,transparent 75%);}
+a,button{-webkit-tap-highlight-color:transparent;}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:8px;}
+
+/* ---------- نوار بالا ---------- */
+.topbar{box-shadow:0 10px 40px rgba(0,0,0,.45);}
+.topbar::after{content:'';display:block;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(212,175,55,.7),transparent);}
+.brand{flex:0 0 auto;}
+.brand>span:last-child{white-space:nowrap;font-size:.95em;}
+.brand b{background:linear-gradient(135deg,var(--gold-2),var(--gold));-webkit-background-clip:text;
+  background-clip:text;color:transparent;}
+.brand-badge{font-size:1.05em;box-shadow:0 4px 16px rgba(212,175,55,.45),inset 0 1px 0 rgba(255,255,255,.5);}
+.topbar-links{align-items:center;justify-content:flex-end;row-gap:8px;}
+.topbar-links a{white-space:nowrap;font-size:.82em;padding:7px 13px;border:1px solid transparent;}
+.topbar-links a:hover,.topbar-links a.on{box-shadow:0 4px 14px rgba(212,175,55,.35);}
+.user-chip{white-space:nowrap;background:rgba(212,175,55,.08);}
+
+/* ---------- هیرو ---------- */
+.hero{position:relative;padding:64px 16px 34px;overflow:hidden;}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;filter:blur(70px);
+  pointer-events:none;z-index:-1;}
+.hero::before{width:420px;height:420px;top:-180px;right:-100px;
+  background:radial-gradient(circle,rgba(212,175,55,.22),transparent 65%);}
+.hero::after{width:380px;height:380px;top:-140px;left:-90px;
+  background:radial-gradient(circle,rgba(64,110,230,.20),transparent 65%);}
+.hero h1{font-size:2.7em;font-weight:700;letter-spacing:-.5px;
+  text-shadow:0 4px 30px rgba(0,0,0,.5);}
+.hero-badge{box-shadow:0 0 24px rgba(212,175,55,.25),inset 0 0 12px rgba(212,175,55,.08);
+  font-weight:500;}
+.hero p{font-size:1.02em;}
+.hero-feats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px;}
+.hero-feats span{background:rgba(255,255,255,.05);border:1px solid var(--navy-line);
+  border-radius:30px;padding:6px 18px;font-size:.8em;color:var(--gold-light);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);}
+.search-hero form{background:rgba(13,28,58,.72);backdrop-filter:blur(8px);
+  transition:border-color .25s,box-shadow .25s;}
+.search-hero form:focus-within{border-color:var(--gold);
+  box-shadow:0 0 0 4px rgba(212,175,55,.15),0 14px 40px rgba(0,0,0,.4);}
+.search-hero input{background:rgba(6,13,26,.65);border-radius:10px;font-size:1.02em;}
+.search-hero input::placeholder{color:#7c88a5;}
+.search-hero button{white-space:nowrap;}
+.suggest-drop a code{background:rgba(212,175,55,.1);border-radius:6px;padding:1px 8px;}
+
+/* ---------- کارت‌های آمار ---------- */
+.stat-card,.dash-card{position:relative;overflow:hidden;background:var(--glass);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07);}
+.stat-card::before,.dash-card::before{content:'';position:absolute;top:0;right:10%;left:10%;
+  height:2px;border-radius:2px;background:var(--gold-grad);opacity:.85;}
+.stat-card b,.dash-card .n{font-size:2em;font-weight:700;
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));-webkit-background-clip:text;
+  background-clip:text;color:transparent;}
+.stat-card:hover,.dash-card:hover{box-shadow:0 16px 40px rgba(0,0,0,.45),0 0 0 1px rgba(212,175,55,.3);}
+
+/* ---------- کارت‌های دسته ---------- */
+.cat-card{background:var(--glass);box-shadow:inset 0 1px 0 rgba(255,255,255,.07);}
+.cat-card .ic{width:58px;height:58px;margin:0 auto;border-radius:50%;display:grid;
+  place-items:center;font-size:1.65em;background:radial-gradient(circle at 35% 30%,
+  rgba(246,226,122,.22),rgba(212,175,55,.06));border:1px solid var(--navy-line);}
+.cat-card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45),0 0 22px rgba(212,175,55,.18);}
+.cat-card:hover .ic{border-color:var(--gold);box-shadow:0 0 18px rgba(212,175,55,.35);}
+
+/* ---------- کارت‌های دستور ---------- */
+.cmd-card{overflow:hidden;background:var(--glass);box-shadow:inset 0 1px 0 rgba(255,255,255,.07);}
+.cmd-card::before{content:'';position:absolute;top:0;right:0;left:0;height:3px;
+  background:linear-gradient(90deg,var(--gold-dark),var(--gold-2),var(--gold-dark));
+  transform:scaleX(0);transform-origin:right;transition:transform .3s;}
+.cmd-card:hover::before{transform:scaleX(1);}
+.cmd-card:hover{box-shadow:0 18px 44px rgba(0,0,0,.5),0 0 26px rgba(212,175,55,.16);}
+.cmd-card h3{background:rgba(4,7,15,.72);border:1px solid rgba(212,175,55,.22);
+  border-radius:10px;padding:9px 13px;font-weight:400;}
+.cmd-card .meta{border-top:1px dashed rgba(255,255,255,.1);padding-top:10px;}
+.pill{box-shadow:inset 0 1px 0 rgba(255,255,255,.08);}
+
+/* ---------- دکمه‌ها ---------- */
+.btn{box-shadow:inset 0 1px 0 rgba(255,255,255,.15);}
+.btn-gold{position:relative;overflow:hidden;background:var(--gold-grad);}
+.btn-gold::after{content:'';position:absolute;top:0;bottom:0;width:45%;left:-70%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:skewX(-20deg);transition:left .55s ease;}
+.btn-gold:hover::after{left:140%;}
+body .search-btn{position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(212,175,55,.35),
+  inset 0 1px 0 rgba(255,255,255,.4);}
+
+/* ---------- صفحه جزئیات (ساختار پرمیوم) ---------- */
+.cmd-detail{margin-top:14px;background:var(--glass);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);}
+.cmd-detail .detail-header{background:linear-gradient(135deg,#16294d,#0a1730 70%)!important;
+  border-bottom:2px solid var(--gold);padding:22px 26px;display:flex;flex-direction:column;gap:14px;}
+.dh-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+body .cmd-detail .readonly-badge-header{display:inline-block;background:linear-gradient(135deg,var(--green),#1d8a52)!important;
+  color:#fff;font-size:.76em;padding:4px 16px;border-radius:20px;
+  box-shadow:0 4px 14px rgba(47,191,113,.35);}
+.cmd-detail .detail-category{background:rgba(212,175,55,.12);border:1px solid var(--border);
+  color:var(--gold-light);border-radius:20px;padding:4px 16px;font-size:.82em;}
+.dh-cmd{background:#04070f;border:1px solid rgba(212,175,55,.4);border-radius:14px;
+  padding:16px 20px;font-family:var(--mono);font-size:1.05em;color:var(--gold-2);
+  overflow-x:auto;white-space:pre-wrap;word-break:break-all;
+  box-shadow:inset 0 2px 18px rgba(0,0,0,.6),0 0 24px rgba(212,175,55,.08);}
+.dh-cmd code{font-family:inherit;background:none!important;padding:0!important;}
+.dh-prompt{color:var(--green);font-weight:700;margin-right:10px;user-select:none;}
+.dh-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.cmd-detail .Detail-body{padding:20px 26px 26px;display:flex;flex-direction:column;gap:14px;}
+body .cmd-detail .info-section{background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.08)!important;
+  border-right:3px solid var(--gold)!important;border-radius:14px;padding:16px 20px;margin:0;}
+body .cmd-detail .info-section h3{margin:0 0 8px;font-size:1em;}
+body .cmd-detail .info-section p{margin:0;color:var(--text);font-size:.92em;}
+body .cmd-detail pre{margin:8px 0 0;}
+body .keyword-list{display:flex;gap:8px;flex-wrap:wrap;}
+body .keyword-badge{display:inline-block;padding:4px 15px!important;border-radius:18px!important;
+  font-size:.8em!important;text-decoration:none;box-shadow:0 3px 10px rgba(212,175,55,.25);}
+body .similar-command,body .file-item{display:inline-block;margin:4px;padding:9px 16px!important;
+  border-radius:12px!important;text-decoration:none;font-size:.85em;}
+.breadcrumb code{background:#050b16;border:1px solid var(--border);color:var(--gold-light);
+  padding:1px 9px;border-radius:7px;font-family:var(--mono);font-size:.85em;}
+/* سرصفحه جزئیات ادمین هم جمع‌وجور شود */
+body .Detail-header h1{font-size:1.35em;}
+
+/* ---------- جداول ---------- */
+body .table-view{overflow-x:auto;}
+body .commands-table{width:100%;border-collapse:separate;border-spacing:0;
+  box-shadow:0 16px 44px rgba(0,0,0,.4);}
+body .commands-table th{padding:13px 14px;font-size:.86em;white-space:nowrap;}
+body .commands-table td{padding:12px 14px;font-size:.88em;vertical-align:middle;}
+body .commands-table tbody tr:nth-child(even){background:rgba(255,255,255,.018)!important;}
+body .commands-table td form{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+body .commands-table select,body .commands-table input[type=text]{
+  padding:7px 10px!important;border-radius:9px!important;font-size:.82em!important;}
+body .pagination a,body .pagination span{box-shadow:0 4px 12px rgba(0,0,0,.3);}
+
+/* ---------- چت‌بات ---------- */
+.msg.user{align-self:flex-end;border-bottom-left-radius:6px;
+  box-shadow:0 8px 22px rgba(212,175,55,.3);}
+.msg.bot{align-self:flex-start;border-bottom-right-radius:6px;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.12);border-right:3px solid var(--gold);
+  box-shadow:0 10px 26px rgba(0,0,0,.4);}
+.chat-body{background:
+  radial-gradient(500px 260px at 50% -60px,rgba(212,175,55,.08),transparent 65%),
+  rgba(6,13,26,.45);scroll-behavior:smooth;}
+.chat-head{box-shadow:0 8px 30px rgba(0,0,0,.4);}
+.chat-foot input{background:rgba(255,255,255,.07);transition:.25s;}
+.chat-foot input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.15);
+  background:rgba(255,255,255,.09);}
+.chat-cats-bar{scrollbar-width:thin;}
+.chat-card-item .t{font-weight:400;}
+
+/* ---------- فرم‌ها و ورود ---------- */
+.auth-card{position:relative;overflow:hidden;}
+.auth-card::before{content:'';position:absolute;top:0;right:12%;left:12%;height:3px;
+  border-radius:3px;background:var(--gold-grad);}
+.field input{transition:border-color .2s,box-shadow .2s;}
+.field input::placeholder{color:#6b7690;}
+.form-ok,.form-err{box-shadow:0 8px 22px rgba(0,0,0,.35);}
+
+/* ---------- فوتر ---------- */
+.footer{position:relative;background:rgba(4,8,18,.85);}
+.footer::before{content:'';position:absolute;top:-1px;right:0;left:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(212,175,55,.8),transparent);}
+
+/* ---------- انیمیشن ورود ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+.cmd-card,.cat-card,.stat-card,.dash-card,.quick-link{animation:rise .55s ease backwards;}
+.cmd-grid>:nth-child(1),.cat-grid>:nth-child(1),.stats-row>:nth-child(1),
+.dash-grid>:nth-child(1),.quick-links>:nth-child(1){animation-delay:.02s;}
+.cmd-grid>:nth-child(2),.cat-grid>:nth-child(2),.stats-row>:nth-child(2),
+.dash-grid>:nth-child(2),.quick-links>:nth-child(2){animation-delay:.06s;}
+.cmd-grid>:nth-child(3),.cat-grid>:nth-child(3),.stats-row>:nth-child(3),
+.dash-grid>:nth-child(3),.quick-links>:nth-child(3){animation-delay:.1s;}
+.cmd-grid>:nth-child(4),.cat-grid>:nth-child(4),.stats-row>:nth-child(4),
+.dash-grid>:nth-child(4),.quick-links>:nth-child(4){animation-delay:.14s;}
+.cmd-grid>:nth-child(5),.cat-grid>:nth-child(5),.stats-row>:nth-child(5),
+.dash-grid>:nth-child(5),.quick-links>:nth-child(5){animation-delay:.18s;}
+.cmd-grid>:nth-child(6),.cat-grid>:nth-child(6),.stats-row>:nth-child(6),
+.dash-grid>:nth-child(6),.quick-links>:nth-child(6){animation-delay:.22s;}
+.cmd-grid>:nth-child(7),.cat-grid>:nth-child(7),
+.dash-grid>:nth-child(7),.quick-links>:nth-child(7){animation-delay:.26s;}
+.cmd-grid>:nth-child(8),.cat-grid>:nth-child(8),
+.dash-grid>:nth-child(8),.quick-links>:nth-child(8){animation-delay:.3s;}
+.cmd-grid>:nth-child(n+9),.cat-grid>:nth-child(n+9){animation-delay:.34s;}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;}
+}
+
+/* ---------- موبایل ---------- */
+@media (max-width:720px){
+  .topbar-inner{gap:10px;padding:10px 14px;}
+  .topbar-links{flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding-bottom:4px;
+    justify-content:flex-start;}
+  .hero{padding:44px 12px 22px;}
+  .hero h1{font-size:2em;}
+  .dh-cmd{font-size:.88em;padding:13px 15px;}
+  .cmd-detail .Detail-header,.cmd-detail .Detail-body{padding:16px;}
+  .chat-body{height:55vh;}
+  .msg{line-height:1.9;}
+}
+
+/* ---------- پولیش نهایی ---------- */
+.search-hero input{min-width:0;}
+.search-hero button{flex:0 0 auto;}
+body .category-badge-small{display:inline-block;padding:3px 14px!important;
+  border-radius:18px!important;font-size:.78em;box-shadow:0 3px 10px rgba(212,175,55,.3);}
+.chat-cats-bar button{transition:.2s;}
+body .cat-btn{box-shadow:inset 0 1px 0 rgba(255,255,255,.06);}

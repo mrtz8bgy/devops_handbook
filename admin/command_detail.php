@@ -29,7 +29,7 @@ $attached_files = $stmt_files->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($command['command']); ?> - راهنمای دستورات</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../assets/css/luxury.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css?v=3.1">
     <style>
         .detail-container {
             background: white;

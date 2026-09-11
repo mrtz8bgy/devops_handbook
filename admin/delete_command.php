@@ -53,7 +53,7 @@ if(isset($_POST['cancel'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حذف دستور - <?php echo htmlspecialchars($command['command']); ?></title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../assets/css/luxury.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css?v=3.1">
     <style>
         .delete-container {
             background: white;

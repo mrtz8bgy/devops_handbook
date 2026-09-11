@@ -23,7 +23,7 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
     <meta charset="UTF-8">
     <title>جستجوی دستورات</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../assets/css/luxury.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css?v=3.1">
     <style>
         .search-result-card {
             transition: transform 0.3s, box-shadow 0.3s;

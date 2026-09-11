@@ -22,13 +22,16 @@ topbar($pdo, user_links('browse'));
 <div class="container">
   <div class="breadcrumb">🏠 <a href="../index.php">خانه</a> ← 📚 <a href="index_readonly.php?cat=<?= urlencode($command['category']) ?>"><?= esc($command['category']) ?></a> ← <code dir="ltr"><?= esc($command['command']) ?></code></div>
 
-  <div class="detail-container" style="margin-top:14px">
+  <div class="detail-container cmd-detail">
     <div class="detail-header">
-      <div class="readonly-badge-header">🔍 نسخه عمومی</div>
-      <h1 dir="ltr">$ <?= esc($command['command']) ?></h1>
-      <span class="detail-category"><?= category_icon($command['category']) ?> <?= esc($command['category']) ?></span>
-      <div>
+      <div class="dh-top">
+        <span class="detail-category"><?= category_icon($command['category']) ?> <?= esc($command['category']) ?></span>
+        <span class="readonly-badge-header">🔍 نسخه عمومی</span>
+      </div>
+      <div class="dh-cmd" dir="ltr"><span class="dh-prompt">$</span><code><?= esc($command['command']) ?></code></div>
+      <div class="dh-actions">
         <button class="detail-copy-btn" data-copy="<?= esc($command['command']) ?>">📋 کپی دستور</button>
+        <a class="btn btn-ghost btn-sm" href="index_readonly.php?cat=<?= urlencode($command['category']) ?>">→ همه <?= esc($command['category']) ?></a>
       </div>
     </div>
     <div class="detail-body">
