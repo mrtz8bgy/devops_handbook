@@ -407,6 +407,7 @@ $categories = $pdo->query("SELECT category FROM categories ORDER BY category")->
                 <a href="search.php" class="nav-btn">🔍 جستجو</a>
                 <a href="manage_categories.php" class="nav-btn">🏷️ مدیریت دسته‌بندی</a>
                 <a href="users.php" class="nav-btn">👥 کاربران</a>
+                <a href="change_password.php" class="nav-btn">🔑 رمز عبور</a>
                 <a href="../logout.php" class="nav-btn">🚪 خروج</a>
             </div>
         </div>

@@ -137,6 +137,7 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
                 <a href="add.php" class="nav-btn">➕ افزودن دستور</a>
                 <a href="manage_categories.php" class="nav-btn">🏷️ مدیریت دسته‌بندی</a>
                 <a href="users.php" class="nav-btn">👥 کاربران</a>
+                <a href="change_password.php" class="nav-btn">🔑 رمز عبور</a>
                 <a href="../logout.php" class="nav-btn">🚪 خروج</a>
             </div>
         </div>

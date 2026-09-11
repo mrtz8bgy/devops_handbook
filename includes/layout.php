@@ -62,6 +62,7 @@ function admin_links($active = '') {
         ['url' => 'manage_qa.php', 'label' => '📋 مدیریت QA', 'on' => $active === 'qa'],
         ['url' => 'manage_unknown.php', 'label' => '❓ بی‌جواب‌ها', 'on' => $active === 'unknown'],
         ['url' => 'users.php', 'label' => '👥 کاربران', 'on' => $active === 'users'],
+        ['url' => 'change_password.php', 'label' => '🔑 رمز عبور', 'on' => $active === 'password'],
     ];
 }
 
