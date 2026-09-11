@@ -1,5 +1,7 @@
 <?php
 require_once 'config.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
+require_admin($pdo); // v3: فقط ادمین
 
 $terraform_commands = [
     ['Terraform', 'terraform init', 'آماده‌سازی دایرکتوری و دانلود پلاگین‌ها', 'initialize,download,plugins', 'terraform init -upgrade', 'terraform get'],

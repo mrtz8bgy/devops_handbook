@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_admin($pdo); // v3: فقط ادمین
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $command = null;
@@ -52,6 +53,7 @@ if(isset($_POST['cancel'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حذف دستور - <?php echo htmlspecialchars($command['command']); ?></title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css">
     <style>
         .delete-container {
             background: white;

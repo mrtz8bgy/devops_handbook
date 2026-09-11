@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_admin($pdo); // v3: فقط ادمین
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $command = null;
@@ -70,6 +71,7 @@ $categories = $pdo->query("SELECT category FROM categories ORDER BY category")->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ویرایش دستور - <?php echo htmlspecialchars($command['command']); ?></title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css">
     <style>
         .edit-container {
             background: white;

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config.php';
+require_admin($pdo); // v3: فقط ادمین
 
 // متغیرها
 $success = '';
@@ -75,7 +76,7 @@ $qa_list = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <title>مدیریت سوال و جواب چت‌بات</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css">
     <style>
         body {
             background: linear-gradient(135deg, #667eea, #764ba2);

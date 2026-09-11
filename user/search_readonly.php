@@ -1,188 +1,80 @@
 <?php
 require_once 'config.php';
+require_once __DIR__ . '/../includes/layout.php';
 
-$results = [];
-$searchTerm = '';
+$q = trim($_GET['q'] ?? '');
+$cat = trim($_GET['cat'] ?? '') ?: null;
+$page = max(1, (int)($_GET['page'] ?? 1));
+$me = current_user($pdo);
 
-if(isset($_GET['q']) && !empty($_GET['q'])) {
-    $searchTerm = $_GET['q'];
-    $sql = "SELECT * FROM commands WHERE 
-            command LIKE :search OR 
-            description LIKE :search OR 
-            keywords LIKE :search";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['search' => "%$searchTerm%"]);
-    $results = $stmt->fetchAll();
+$cats = $pdo->query("SELECT category FROM categories ORDER BY category")->fetchAll(PDO::FETCH_COLUMN);
+$res = ['results' => [], 'total' => 0, 'tokens' => [], 'pages' => 0, 'per' => 12];
+if ($q !== '') {
+    $res = pro_search($pdo, $q, ['category' => $cat, 'page' => $page, 'per' => 12,
+        'log' => true, 'user_id' => $me['id'] ?? null]);
 }
+
+page_head($q !== '' ? 'جستجو: ' . $q : 'جستجوی پیشرفته');
+topbar($pdo, user_links('search'));
 ?>
+<div class="container">
+  <div class="breadcrumb">🏠 <a href="../index.php">خانه</a> ← 🔍 جستجوی پیشرفته</div>
 
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>جستجوی دستورات - نسخه عمومی</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .readonly-badge {
-            background: #28a745;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-        
-        .result-header {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .result-count {
-            background: #667eea;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-        }
-        
-        .detail-link {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 8px 20px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            text-decoration: none;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-        
-        .copy-search-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.6);
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 12px;
-            z-index: 20;
-        }
-        
-        .copy-search-btn:hover {
-            background: #28a745;
-        }
-        
-        .toast-notification {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: #28a745;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 10px;
-            z-index: 1000;
-            animation: slideIn 0.3s ease, fadeOut 2s ease 1.7s;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            70% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🔍 جستجوی پیشرفته <span class="readonly-badge">نسخه عمومی</span></h1>
-            <p>جستجو بر اساس نام دستور، توضیحات یا کلمات کلیدی</p>
-            <div class="nav-menu">
-                <a href="index_readonly.php" class="nav-btn">🏠 صفحه اصلی</a>
+  <div class="search-hero" style="margin:10px auto 16px">
+    <form action="search_readonly.php" method="GET">
+      <input type="text" name="q" value="<?= esc($q) ?>" data-suggest="../api/suggest.php"
+             data-detail="command_detail_readonly.php" placeholder="بنویس: docker ps ، لاگ ، بکاپ..." autocomplete="off">
+      <button class="btn btn-gold" type="submit">🔍 جستجو</button>
+    </form>
+    <div class="suggest-drop"></div>
+  </div>
+
+  <?php if ($q !== ''): ?>
+    <form method="GET" class="toolbar">
+      <input type="hidden" name="q" value="<?= esc($q) ?>">
+      <label style="font-size:.85em;color:var(--muted)">دسته:</label>
+      <select name="cat" onchange="this.form.submit()">
+        <option value="">همه دسته‌ها</option>
+        <?php foreach ($cats as $c): ?>
+          <option value="<?= esc($c) ?>" <?= $cat === $c ? 'selected' : '' ?>><?= esc($c) ?></option>
+        <?php endforeach; ?>
+      </select>
+      <span class="pill">📊 <?= fa_digits($res['total']) ?> نتیجه</span>
+    </form>
+
+    <?php if ($res['results']): ?>
+      <div class="cmd-grid">
+        <?php foreach ($res['results'] as $r): ?>
+          <a class="cmd-card" href="command_detail_readonly.php?id=<?= (int)$r['id'] ?>">
+            <h3><?= highlight($r['command'], $res['tokens']) ?></h3>
+            <p><?= highlight(mb_substr(strip_tags($r['description']), 0, 95) . '...', $res['tokens']) ?></p>
+            <div class="meta">
+              <span class="pill"><?= category_icon($r['category']) ?> <?= esc($r['category']) ?></span>
+              <span>جزئیات ←</span>
             </div>
+          </a>
+        <?php endforeach; ?>
+      </div>
+      <?php if ($res['pages'] > 1): ?>
+        <div class="pager">
+          <?php for ($i = 1; $i <= $res['pages']; $i++): ?>
+            <?php $qs = http_build_query(['q' => $q, 'cat' => $cat ?? '', 'page' => $i]); ?>
+            <?php if ($i === $page): ?><span class="on"><?= fa_digits($i) ?></span>
+            <?php else: ?><a href="?<?= $qs ?>"><?= fa_digits($i) ?></a><?php endif; ?>
+          <?php endfor; ?>
         </div>
-
-        <div class="search-box">
-            <form method="GET" style="display: flex; width: 100%;">
-                <input type="text" name="q" class="search-input" placeholder="جستجو..." value="<?php echo htmlspecialchars($searchTerm); ?>">
-                <button type="submit" class="search-btn">جستجو</button>
-            </form>
-        </div>
-
-        <?php if($searchTerm): ?>
-            <div class="result-header">
-                <strong>🔎 نتیجه جستجو برای: "<?php echo htmlspecialchars($searchTerm); ?>"</strong>
-                <span class="result-count">📊 تعداد نتایج: <?php echo count($results); ?></span>
-            </div>
-
-            <div class="cards-grid">
-                <?php foreach($results as $row): ?>
-                    <div class="command-card" style="position: relative;">
-                        <button onclick="copyToClipboard('<?php echo htmlspecialchars(addslashes($row['command'])); ?>', event)" class="copy-search-btn">
-                            📋 کپی
-                        </button>
-                        <a href="command_detail_readonly.php?id=<?php echo $row['id']; ?>" style="text-decoration: none; color: inherit;">
-                            <div class="card-header">
-                                <h3><?php echo htmlspecialchars($row['command']); ?></h3>
-                                <span class="category-badge">📁 <?php echo htmlspecialchars($row['category']); ?></span>
-                            </div>
-                            <div class="card-body">
-                                <div class="command-code">$ <?php echo htmlspecialchars($row['command']); ?></div>
-                                <div class="description">
-                                    <?php 
-                                    $short_desc = mb_substr(strip_tags($row['description']), 0, 150);
-                                    echo htmlspecialchars($short_desc) . '...';
-                                    ?>
-                                </div>
-                                <div style="margin-top: 15px; text-align: left;">
-                                    <span class="detail-link">🔍 مشاهده جزئیات کامل →</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                <?php endforeach; ?>
-                
-                <?php if(count($results) == 0): ?>
-                    <div style="background: white; padding: 60px; text-align: center; border-radius: 15px;">
-                        <h3>❌ هیچ دستوری پیدا نشد!</h3>
-                    </div>
-                <?php endif; ?>
-            </div>
-        <?php else: ?>
-            <div style="background: white; padding: 60px; text-align: center; border-radius: 15px; margin-top: 30px;">
-                <h3>🔍 چیزی که دنبالشی رو تایپ کن...</h3>
-                <p>مثال: docker, git, ls, psql, nginx</p>
-            </div>
-        <?php endif; ?>
+      <?php endif; ?>
+    <?php else: ?>
+      <div class="empty-box">
+        <h3>🤔 چیزی پیدا نشد!</h3>
+        <p>کوتاه‌تر بنویس، انگلیسی امتحان کن، یا از <a href="chatbot.php">چت‌بات 🤖</a> بپرس.</p>
+      </div>
+    <?php endif; ?>
+  <?php else: ?>
+    <div class="empty-box">
+      <h3>🔍 چیزی که دنبالشی رو تایپ کن...</h3>
+      <p>مثال: <a href="?q=docker">docker</a> ، <a href="?q=لاگ">لاگ</a> ، <a href="?q=backup">backup</a> ، <a href="?q=nginx">nginx</a></p>
     </div>
-
-    <script>
-    function copyToClipboard(command, event) {
-        if(event) event.stopPropagation();
-        navigator.clipboard.writeText(command).then(function() {
-            showNotification('✅ دستور "' + command + '" کپی شد!');
-        });
-    }
-    
-    function showNotification(message) {
-        const existing = document.querySelector('.toast-notification');
-        if(existing) existing.remove();
-        const toast = document.createElement('div');
-        toast.className = 'toast-notification';
-        toast.innerHTML = message;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 2500);
-    }
-    </script>
-</body>
-</html>
+  <?php endif; ?>
+</div>
+<?php page_footer(); ?>

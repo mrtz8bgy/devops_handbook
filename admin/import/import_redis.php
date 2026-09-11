@@ -1,5 +1,7 @@
 <?php
 require_once 'config.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
+require_admin($pdo); // v3: فقط ادمین
 
 $redis_commands = [
     ['Redis', 'redis-server', 'اجرای سرور Redis', 'start,server,database', 'redis-server --port 6379', 'redis-server /etc/redis.conf'],

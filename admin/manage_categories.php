@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_admin($pdo); // v3: فقط ادمین
 
 // افزودن دسته‌بندی جدید
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_category'])) {
@@ -50,6 +51,7 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY category")->fetchAl
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت دسته‌بندی‌ها</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css">
     <style>
         .categories-list {
             background: white;
@@ -114,6 +116,8 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY category")->fetchAl
                 <a href="index.php" class="nav-btn">🏠 صفحه اصلی</a>
                 <a href="add.php" class="nav-btn">➕ افزودن دستور</a>
                 <a href="manage_categories.php" class="nav-btn">🏷️ مدیریت دسته‌بندی</a>
+                <a href="users.php" class="nav-btn">👥 کاربران</a>
+                <a href="../logout.php" class="nav-btn">🚪 خروج</a>
             </div>
         </div>
 

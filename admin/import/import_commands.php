@@ -1,5 +1,7 @@
 <?php
 require_once 'config.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
+require_admin($pdo); // v3: فقط ادمین
 
 // لیست کامل دستورات پرکاربرد DevOps - بخش سرویس‌های Docker (PostgreSQL, GitLab, Jira, Nexus)
 $commands_list = [

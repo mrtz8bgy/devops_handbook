@@ -1,5 +1,7 @@
 <?php
 require_once 'config.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
+require_admin($pdo); // v3: فقط ادمین
 
 $k8s_advanced_commands = [
     ['Kubernetes', 'kubectl get pods --all-namespaces', 'لیست پادها در همه نام‌فضاها', 'pods,all,wide', 'kubectl get pods -A -o wide', 'kubectl get pods -n namespace'],

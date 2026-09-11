@@ -1,5 +1,7 @@
 <?php
 require_once 'config.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
+require_admin($pdo); // v3: فقط ادمین
 
 $mongodb_commands = [
     ['MongoDB', 'mongod', 'اجرای سرور MongoDB', 'start,server,database', 'mongod --dbpath /data/db', 'mongos, mongo'],

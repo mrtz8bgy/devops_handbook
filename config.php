@@ -15,10 +15,10 @@ if (!is_dir(__DIR__ . '/logs')) {
 // ============================================
 // تنظیمات دیتابیس
 // ============================================
-$host = 'localhost';
-$dbname = 'devops_handbook';
-$username = 'root';
-$password = '';
+$host = getenv('DB_HOST') ?: 'localhost';
+$dbname = getenv('DB_NAME') ?: 'devops_handbook';
+$username = getenv('DB_USER') ?: 'root';
+$password = getenv('DB_PASS') !== false ? getenv('DB_PASS') : '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
@@ -31,4 +31,7 @@ try {
 
 // تنظیم زمان
 date_default_timezone_set('Asia/Tehran');
+
+// هسته مشترک v3 (توابع کمکی، احراز هویت، موتور جستجو و چت‌بات)
+require_once __DIR__ . '/includes/bootstrap.php';
 ?>

@@ -1,5 +1,7 @@
 <?php
 require_once 'config.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
+require_admin($pdo); // v3: فقط ادمین
 
 $postgresql_commands = [
     ['PostgreSQL', 'psql -U username -d dbname', 'اتصال به دیتابیس PostgreSQL', 'connect,login,access', 'psql -U postgres -d mydb', 'pgcli, pgadmin'],

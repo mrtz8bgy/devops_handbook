@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_admin($pdo); // v3: فقط ادمین
 
 $success = '';
 $error = '';
@@ -265,6 +266,7 @@ $categories = $pdo->query("SELECT category FROM categories ORDER BY category")->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>افزودن دستور جدید</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css">
     <style>
         .section-card {
             background: white;
@@ -404,6 +406,8 @@ $categories = $pdo->query("SELECT category FROM categories ORDER BY category")->
                 <a href="add.php" class="nav-btn">➕ افزودن دستور</a>
                 <a href="search.php" class="nav-btn">🔍 جستجو</a>
                 <a href="manage_categories.php" class="nav-btn">🏷️ مدیریت دسته‌بندی</a>
+                <a href="users.php" class="nav-btn">👥 کاربران</a>
+                <a href="../logout.php" class="nav-btn">🚪 خروج</a>
             </div>
         </div>
 

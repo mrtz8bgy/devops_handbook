@@ -1,5 +1,7 @@
 <?php
 require_once 'config.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
+require_admin($pdo); // v3: فقط ادمین
 
 // بررسی دسته‌بندی‌های اشتباه
 $stmt = $pdo->query("SELECT DISTINCT category FROM commands WHERE category LIKE '%\"%' OR category LIKE '%//%'");

@@ -1,188 +1,77 @@
 <?php
 require_once 'config.php';
+require_once __DIR__ . '/../includes/layout.php';
+
+$cat = trim($_GET['cat'] ?? 'all');
+$page = max(1, (int)($_GET['page'] ?? 1));
+$per = 12;
+
+$cats = $pdo->query(
+    "SELECT c.category AS name, COUNT(cmd.id) AS cnt FROM categories c
+     LEFT JOIN commands cmd ON cmd.category = c.category
+     GROUP BY c.category ORDER BY c.category")->fetchAll(PDO::FETCH_ASSOC);
+
+if ($cat !== 'all') {
+    $st = $pdo->prepare("SELECT COUNT(*) FROM commands WHERE category = ?");
+    $st->execute([$cat]);
+    $total = (int)$st->fetchColumn();
+    $st = $pdo->prepare("SELECT * FROM commands WHERE category = ? ORDER BY command ASC LIMIT $per OFFSET " . (($page - 1) * $per));
+    $st->execute([$cat]);
+} else {
+    $total = (int)$pdo->query("SELECT COUNT(*) FROM commands")->fetchColumn();
+    $st = $pdo->query("SELECT * FROM commands ORDER BY id DESC LIMIT $per OFFSET " . (($page - 1) * $per));
+}
+$rows = $st->fetchAll(PDO::FETCH_ASSOC);
+$pages = (int)ceil($total / $per);
+$total_all = (int)$pdo->query("SELECT COUNT(*) FROM commands")->fetchColumn();
+
+page_head('مرور دستورات', 'مرور و فیلتر همه دستورات DevOps بر اساس دسته‌بندی');
+topbar($pdo, user_links('browse'));
 ?>
+<div class="container">
+  <div class="breadcrumb">🏠 <a href="../index.php">خانه</a> ← 📚 مرور دستورات <?= $cat !== 'all' ? '← ' . esc($cat) : '' ?></div>
 
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کتاب راهنمای DevOps - نسخه عمومی</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .readonly-badge {
-            background: #28a745;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            display: inline-block;
-            margin-right: 10px;
-        }
-        
-        .warning-box {
-            background: #fff3cd;
-            border-right: 4px solid #ffc107;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .action-buttons {
-            display: none !important;
-        }
-        
-        .edit-btn, .delete-btn {
-            display: none !important;
-        }
-        
-        .nav-menu .nav-btn:not(.home-only) {
-            display: none;
-        }
-        
-        .add-button {
-            display: none;
-        }
-        
-        .command-card .card-header {
-            position: relative;
-        }
-        
-        .readonly-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-size: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>📚 کتاب راهنمای DevOps <span class="readonly-badge">نسخه عمومی - فقط خواندنی</span></h1>
-            <p>مرجع کامل دستورات لینوکس، داکر، گیت و... - دسترسی فقط برای مشاهده و جستجو</p>
-            <div class="warning-box">
-                ⚠️ این نسخه فقط برای مشاهده و جستجو است. در صورت نیاز به افزودن دستور جدید، با مدیر سیستم تماس بگیرید.
-            </div>
-            <div class="nav-menu">
-                <a href="index_readonly.php" class="nav-btn home-only">🏠 صفحه اصلی</a>
-                <a href="search_readonly.php" class="nav-btn home-only">🔍 جستجوی پیشرفته</a>
-                <a href="chatbot.php" class="nav-btn home-only">🔍 چت بات</a>
-            </div>
-        </div>
+  <div class="search-hero" style="margin:10px auto 20px">
+    <form action="search_readonly.php" method="GET">
+      <input type="text" name="q" data-suggest="../api/suggest.php" data-detail="command_detail_readonly.php"
+             placeholder="جستجوی سریع دستور..." autocomplete="off">
+      <button class="btn btn-gold" type="submit">🔍</button>
+    </form>
+    <div class="suggest-drop"></div>
+  </div>
 
-        <div class="search-box">
-            <form action="search_readonly.php" method="GET" style="display: flex; width: 100%;">
-                <input type="text" name="q" class="search-input" placeholder="جستجوی دستور، توضیحات یا کلمات کلیدی...">
-                <button type="submit" class="search-btn">جستجو</button>
-            </form>
-        </div>
+  <div class="categories">
+    <a class="cat-btn <?= $cat === 'all' ? 'active' : '' ?>" href="?cat=all">همه (<?= fa_digits($total_all ?? $pdo->query("SELECT COUNT(*) FROM commands")->fetchColumn()) ?>)</a>
+    <?php foreach ($cats as $c): ?>
+      <a class="cat-btn <?= $cat === $c['name'] ? 'active' : '' ?>" href="?cat=<?= urlencode($c['name']) ?>">
+        <?= category_icon($c['name']) ?> <?= esc($c['name']) ?> (<?= fa_digits($c['cnt']) ?>)
+      </a>
+    <?php endforeach; ?>
+  </div>
 
-        <div class="categories" id="categories">
-            <button class="cat-btn active" onclick="filterByCategory('all')">همه</button>
-            <?php
-            $stmt = $pdo->query("SELECT category FROM categories ORDER BY category");
-            while($row = $stmt->fetch()) {
-                echo "<button class='cat-btn' onclick='filterByCategory(\"" . htmlspecialchars($row['category']) . "\")'>" . htmlspecialchars($row['category']) . "</button>";
-            }
-            ?>
-        </div>
-
-        <div class="cards-grid" id="commandsContainer">
-            <?php
-            $stmt = $pdo->query("SELECT * FROM commands ORDER BY created_at DESC");
-            if($stmt->rowCount() > 0) {
-                while($row = $stmt->fetch()) {
-                    ?>
-                    <div class="command-card" data-category="<?php echo htmlspecialchars($row['category']); ?>">
-                        <a href="command_detail_readonly.php?id=<?php echo $row['id']; ?>" style="text-decoration: none; color: inherit;">
-                            <div class="card-header">
-                                <div class="readonly-icon">🔍 فقط مشاهده</div>
-                                <h3><?php echo htmlspecialchars($row['command']); ?></h3>
-                                <span class="category-badge"><?php echo htmlspecialchars($row['category']); ?></span>
-                            </div>
-                            <div class="card-body">
-                                <div class="command-code">$ <?php echo htmlspecialchars($row['command']); ?></div>
-                                <div class="description">
-                                    <?php 
-                                    $short_desc = mb_substr(strip_tags($row['description']), 0, 120);
-                                    echo htmlspecialchars($short_desc) . '...';
-                                    ?>
-                                </div>
-                                <?php if($row['example']): ?>
-                                    <div class="command-code" style="background: #e8f0fe; margin-top: 10px;">
-                                        📝 مثال: <?php echo htmlspecialchars(mb_substr($row['example'], 0, 50)); ?>
-                                    </div>
-                                <?php endif; ?>
-                                <?php if($row['keywords']): ?>
-                                    <div class="keywords">
-                                        <?php 
-                                        $keywords = explode(',', $row['keywords']);
-                                        $counter = 0;
-                                        foreach($keywords as $kw) {
-                                            if($counter < 3) {
-                                                echo "<span class='keyword-tag'>#" . htmlspecialchars(trim($kw)) . "</span>";
-                                                $counter++;
-                                            }
-                                        }
-                                        ?>
-                                    </div>
-                                <?php endif; ?>
-                                <div style="margin-top: 15px; text-align: left; direction: ltr;">
-                                    <span style="color: #667eea; font-size: 13px; font-weight: bold;">🔍 مشاهده جزئیات کامل →</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <?php
-                }
-            } else {
-                ?>
-                <div style="background: white; border-radius: 15px; padding: 40px; text-align: center; grid-column: 1/-1;">
-                    <p style="font-size: 1.2em; color: #666;">📭 در حال حاضر دستوری در سیستم وجود ندارد.</p>
-                </div>
-                <?php
-            }
-            ?>
-        </div>
+  <?php if ($rows): ?>
+    <div class="cmd-grid">
+      <?php foreach ($rows as $r): ?>
+        <a class="cmd-card" href="command_detail_readonly.php?id=<?= (int)$r['id'] ?>">
+          <h3><?= esc($r['command']) ?></h3>
+          <p><?= esc(mb_substr(strip_tags($r['description']), 0, 95)) ?>...</p>
+          <div class="meta">
+            <span class="pill"><?= category_icon($r['category']) ?> <?= esc($r['category']) ?></span>
+            <span>جزئیات ←</span>
+          </div>
+        </a>
+      <?php endforeach; ?>
     </div>
-
-    <button onclick="scrollToTop()" class="scroll-top-btn" id="scrollTopBtn" title="بازگشت به بالا">↑</button>
-
-    <script>
-    function filterByCategory(category) {
-        const cards = document.querySelectorAll('.command-card');
-        const btns = document.querySelectorAll('.cat-btn');
-        
-        btns.forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-        
-        cards.forEach(card => {
-            if(category === 'all' || card.dataset.category === category) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-
-    function scrollToTop() {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
-    
-    window.addEventListener('scroll', function() {
-        const scrollBtn = document.getElementById('scrollTopBtn');
-        if (window.pageYOffset > 300) {
-            scrollBtn.classList.add('show');
-        } else {
-            scrollBtn.classList.remove('show');
-        }
-    });
-    </script>
-</body>
-</html>
+    <?php if ($pages > 1): ?>
+      <div class="pager">
+        <?php for ($i = 1; $i <= $pages; $i++): ?>
+          <?php if ($i === $page): ?><span class="on"><?= fa_digits($i) ?></span>
+          <?php else: ?><a href="?cat=<?= urlencode($cat) ?>&page=<?= $i ?>"><?= fa_digits($i) ?></a><?php endif; ?>
+        <?php endfor; ?>
+      </div>
+    <?php endif; ?>
+  <?php else: ?>
+    <div class="empty-box"><h3>📭 دستوری در این دسته نیست</h3><p>دسته دیگری را امتحان کن.</p></div>
+  <?php endif; ?>
+</div>
+<?php page_footer(); ?>

@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_admin($pdo); // v3: فقط ادمین
 
 $results = [];
 $searchTerm = '';
@@ -22,6 +23,7 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
     <meta charset="UTF-8">
     <title>جستجوی دستورات</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/luxury.css">
     <style>
         .search-result-card {
             transition: transform 0.3s, box-shadow 0.3s;
@@ -134,6 +136,8 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
                 <a href="index.php" class="nav-btn">🏠 صفحه اصلی</a>
                 <a href="add.php" class="nav-btn">➕ افزودن دستور</a>
                 <a href="manage_categories.php" class="nav-btn">🏷️ مدیریت دسته‌بندی</a>
+                <a href="users.php" class="nav-btn">👥 کاربران</a>
+                <a href="../logout.php" class="nav-btn">🚪 خروج</a>
             </div>
         </div>
 
@@ -158,7 +162,7 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
                                     class="search-copy-btn">
                                 📋 کپی
                             </button>
-                            <h3><?php echo htmlspecialchars($row['command']); ?></h3>
+                            <h3><?php echo highlight($row['command'], $search_tokens); ?></h3>
                             <span class="category-badge">📁 <?php echo htmlspecialchars($row['category']); ?></span>
                         </div>
                         <div class="card-body">

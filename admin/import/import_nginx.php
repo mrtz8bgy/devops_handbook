@@ -1,5 +1,7 @@
 <?php
 require_once 'config.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
+require_admin($pdo); // v3: فقط ادمین
 
 $nginx_commands = [
     ['Nginx', 'nginx -t', 'تست صحت تنظیمات Nginx', 'test,config,validate', 'nginx -t', 'nginx -T'],
