@@ -11,5 +11,6 @@ require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/search_engine.php';
 require_once __DIR__ . '/chatbot_engine.php';
+require_once __DIR__ . '/ai_provider.php';
 
 ensure_session();

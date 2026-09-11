@@ -62,6 +62,7 @@ topbar($pdo, admin_links('dash'));
     <a class="quick-link" href="manage_unknown.php"><span class="ic">❓</span><b>بی‌جواب‌ها (<?= fa_digits($stats['unknown']) ?>)</b><small>یادگیری از کاربران</small></a>
     <a class="quick-link" href="users.php"><span class="ic">👥</span><b>کاربران</b><small>نقش‌ها و دسترسی</small></a>
     <a class="quick-link" href="change_password.php"><span class="ic">🔑</span><b>تغییر رمز</b><small>رمز عبور خودت</small></a>
+    <a class="quick-link" href="ai_drafts.php"><span class="ic">🤖</span><b>هوش مصنوعی</b><small>صف تأیید و تنظیمات</small></a>
     <a class="quick-link" href="../index.php" target="_blank"><span class="ic">🌐</span><b>مشاهده سایت</b><small>نسخه عمومی</small></a>
   </div>
 

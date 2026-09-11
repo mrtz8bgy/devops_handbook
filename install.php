@@ -51,6 +51,41 @@ if ($pdo) {
         step('مایگریشن v3', false, $e->getMessage());
     }
 
+    // 3b) مایگریشن v4 (هوش مصنوعی)
+    try {
+        $n = run_sql_file($pdo, __DIR__ . '/db/migration_v4.sql');
+        step('مایگریشن v4 (پیش‌نویس AI و تنظیمات)', true, $n . ' دستور اجرا شد');
+    } catch (Throwable $e) {
+        step('مایگریشن v4', false, $e->getMessage());
+    }
+
+    // 3c) ستون‌های AI در chatbot_qa
+    try {
+        $cols = $pdo->query("SHOW COLUMNS FROM chatbot_qa")->fetchAll(PDO::FETCH_COLUMN);
+        if (!in_array('source', $cols, true)) $pdo->exec("ALTER TABLE chatbot_qa ADD COLUMN source VARCHAR(16) NOT NULL DEFAULT 'manual'");
+        if (!in_array('ai_model', $cols, true)) $pdo->exec("ALTER TABLE chatbot_qa ADD COLUMN ai_model VARCHAR(100) NULL");
+        step('ستون‌های AI در chatbot_qa', true, 'بررسی/ساخته شد');
+    } catch (Throwable $e) {
+        step('ستون‌های AI در chatbot_qa', false, $e->getMessage());
+    }
+
+    // 3d) تبدیل جداول قدیمی به utf8mb4 (پشتیبانی ایموجی در پاسخ‌های AI)
+    try {
+        $tables = ['categories', 'chatbot_conversation_context', 'chatbot_feedback', 'chatbot_qa',
+            'chatbot_synonyms', 'chatbot_unknown_questions', 'command_files', 'commands', 'user_questions'];
+        $converted = 0;
+        foreach ($tables as $t) {
+            try {
+                $pdo->exec("ALTER TABLE `$t` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+                $converted++;
+            } catch (Throwable $e) { /* جدول نیست یا قبلاً تبدیل شده */
+            }
+        }
+        step('تبدیل جداول به utf8mb4', true, $converted . ' جدول');
+    } catch (Throwable $e) {
+        step('تبدیل جداول به utf8mb4', false, $e->getMessage());
+    }
+
     // 4) ایندکس FULLTEXT
     try {
         $has = $pdo->query("SHOW INDEX FROM commands WHERE Key_name = 'ft_commands'")->fetch();

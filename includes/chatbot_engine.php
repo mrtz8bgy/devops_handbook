@@ -167,6 +167,13 @@ function chatbot_answer($pdo, $question, $opts = []) {
             'qa_id' => null, 'intent' => 'search', 'count' => $res['total']];
     }
 
+    // ---------- AI Fallback: صف پیش‌نویس برای تأیید ادمین ----
+    $ai_msg = ai_fallback($pdo, $q);
+    if ($ai_msg !== null) {
+        return ['answer' => $ai_msg, 'commands' => [], 'suggestions' => ['دسته‌بندی‌ها', 'راهنما'],
+            'qa_id' => null, 'intent' => 'ai_pending', 'count' => 0];
+    }
+
     // ---------- بی‌جواب: ثبت برای یادگیری ----
     log_unknown($pdo, $q);
     return ['answer' => '🤔 چیزی پیدا نکردم! چند پیشنهاد:<br>• کوتاه‌تر بنویس (مثلاً «لاگ» )<br>• انگلیسی امتحان کن (مثلاً <code dir="ltr">docker logs</code>)<br>• از دسته‌بندی‌ها مرور کن<br><br>✅ سؤالت ثبت شد تا مدیر جوابش رو اضافه کنه.',

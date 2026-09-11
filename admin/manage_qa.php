@@ -417,6 +417,7 @@ $qa_list = $stmt->fetchAll();
                     <tr>
                         <td class="qa-question">
                             <?php echo htmlspecialchars($qa['question']); ?>
+                            <?php if (($qa['source'] ?? '') === 'ai'): ?> <span class="pill">🤖 AI</span><?php endif; ?>
                             <?php if($qa['keywords']): ?>
                                 <br><small style="color: #999;">🔑 <?php echo htmlspecialchars($qa['keywords']); ?></small>
                             <?php endif; ?>
