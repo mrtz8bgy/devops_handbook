@@ -1,0 +1,88 @@
+# نمونه دستورات لینوکس
+- command: "ls -la"
+  category: Linux 
+  description: "نمایش لیست کامل فایل‌ها و پوشه‌ها با جزئیات کامل شامل مجوزها، مالک، اندازه و تاریخ"
+  keywords: "list, files, detailed, permissions"
+  example: "ls -la /home/user/Documents"
+  similar: "ll, dir, ls -l"
+
+- command: "grep -r 'text' ."
+  category: Linux
+  description: "جستجوی بازگشتی متن در تمام فایل‌های دایرکتوری جاری"
+  keywords: "search, recursive, text, find"
+  example: "grep -r 'error' /var/log/"
+  similar: "find, ack, rg"
+
+- command: "chmod 755 script.sh"
+  category: Linux
+  description: "تنظیم دسترسی‌های فایل: مالک میتواند بخواند، بنویسد و اجرا کند، گروه و دیگران فقط خواندن و اجرا"
+  keywords: "permissions, executable, access"
+  example: "chmod 755 deploy.sh"
+  similar: "chown, chgrp, umask"
+
+# نمونه دستورات Docker
+- command: "docker ps -a"
+  category: Docker
+  description: "نمایش همه کانتینرها (در حال اجرا و متوقف شده) به همراه اطلاعات کامل"
+  keywords: "containers, list, all, running"
+  example: "docker ps -a --format 'table {{.Names}}\t{{.Status}}'"
+  similar: "docker stats, docker top"
+
+- command: "docker images"
+  category: Docker
+  description: "نمایش لیست ایمیج‌های دانلود شده روی سیستم"
+  keywords: "images, list, local, repository"
+  example: "docker images --filter 'dangling=false'"
+  similar: "docker rmi, docker pull"
+
+- command: "docker-compose up -d"
+  category: Docker
+  description: "اجرای سرویس‌های تعریف شده در فایل docker-compose.yml در حالت دیمن (background)"
+  keywords: "compose, orchestrate, multi-container"
+  example: "docker-compose -f docker-compose.prod.yml up -d"
+  similar: "docker-compose down, docker-compose logs"
+
+# نمونه دستورات Git
+- command: "git status"
+  category: Git
+  description: "نمایش وضعیت فعلی مخزن شامل فایل‌های تغییر یافته، اضافه شده و آماده کامیت"
+  keywords: "status, changes, modified, staged"
+  example: "git status -s"
+  similar: "git diff, git log"
+
+- command: "git log --oneline --graph"
+  category: Git
+  description: "نمایش تاریخچه کامیت‌ها به صورت گرافیکی و فشرده"
+  keywords: "history, commits, graph, tree"
+  example: "git log --oneline --graph --all"
+  similar: "git show, git diff"
+
+# نمونه دستورات شبکه
+- command: "netstat -tuln"
+  category: Network
+  description: "نمایش پورت‌های باز و سرویس‌های در حال گوش دادن"
+  keywords: "ports, listening, network, connections"
+  example: "netstat -tulnp | grep LISTEN"
+  similar: "ss, lsof, nmap"
+
+- command: "curl -I https://example.com"
+  category: Network
+  description: "دریافت هدرهای HTTP یک سایت برای بررسی وضعیت"
+  keywords: "http, headers, status, request"
+  example: "curl -I https://google.com"
+  similar: "wget, httpie"
+
+# نمونه دستورات پایگاه داده
+- command: "mysql -u root -p -e 'SHOW DATABASES;'"
+  category: Database
+  description: "اتصال به MySQL و نمایش لیست دیتابیس‌ها"
+  keywords: "mysql, database, list, show"
+  example: "mysql -u admin -p -e 'SELECT VERSION();'"
+  similar: "psql, mongosh"
+
+- command: "pg_dump mydb > backup.sql"
+  category: Database
+  description: "بکاپ گرفتن از دیتابیس PostgreSQL"
+  keywords: "postgresql, backup, export, dump"
+  example: "pg_dump -U postgres mydb > backup_$(date +%Y%m%d).sql"
+  similar: "pg_restore, psql"

@@ -1,0 +1,5 @@
+[19-Jun-2026 22:08:40 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'devops_handbook.categories' doesn't exist in C:\xampp-7\htdocs\devops_handbook\user\index_readonly.php:89
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\index_readonly.php(89): PDO->query('SELECT category...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\index_readonly.php on line 89

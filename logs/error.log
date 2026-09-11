@@ -1,0 +1,118 @@
+[05-May-2026 03:40:08 Asia/Tehran] PHP Notice:  Undefined variable: question» in C:\xampp-7\htdocs\devops_handbook\admin\manage_unknown.php on line 25
+[05-May-2026 13:33:36 Asia/Tehran] PHP Notice:  Undefined variable: question» in C:\xampp-7\htdocs\devops_handbook\admin\manage_unknown.php on line 25
+[06-May-2026 00:28:34 Asia/Tehran] PHP Notice:  Undefined variable: question» in C:\xampp-7\htdocs\devops_handbook\admin\manage_unknown.php on line 25
+[09-Jun-2026 23:04:29 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.commands' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\admin\index.php:24
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\admin\index.php(24): PDO->query('SELECT COUNT(*)...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\admin\index.php on line 24
+[09-Jun-2026 23:04:31 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.commands' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\admin\index.php:24
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\admin\index.php(24): PDO->query('SELECT COUNT(*)...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\admin\index.php on line 24
+[09-Jun-2026 23:04:43 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.categories' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\user\index_readonly.php:89
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\index_readonly.php(89): PDO->query('SELECT category...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\index_readonly.php on line 89
+[09-Jun-2026 23:04:44 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.categories' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\get_categories.php:6
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\get_categories.php(6): PDO->query('SELECT category...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\get_categories.php on line 6
+[09-Jun-2026 23:06:37 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.chatbot_qa' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php:16
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\chatbot.php(16): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php on line 16
+[09-Jun-2026 23:06:43 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.chatbot_qa' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php:16
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\chatbot.php(16): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php on line 16
+[09-Jun-2026 23:06:45 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.chatbot_qa' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php:16
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\chatbot.php(16): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php on line 16
+[09-Jun-2026 23:07:07 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.chatbot_qa' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php:16
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\chatbot.php(16): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php on line 16
+[09-Jun-2026 23:10:17 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.commands' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\admin\index.php:24
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\admin\index.php(24): PDO->query('SELECT COUNT(*)...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\admin\index.php on line 24
+[16-Jun-2026 17:44:32 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.commands' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\admin\index.php:24
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\admin\index.php(24): PDO->query('SELECT COUNT(*)...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\admin\index.php on line 24
+[16-Jun-2026 17:44:37 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.categories' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\user\index_readonly.php:89
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\index_readonly.php(89): PDO->query('SELECT category...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\index_readonly.php on line 89
+[16-Jun-2026 17:44:40 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.categories' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\get_categories.php:6
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\get_categories.php(6): PDO->query('SELECT category...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\get_categories.php on line 6
+[16-Jun-2026 17:44:47 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.chatbot_qa' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php:16
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\chatbot.php(16): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php on line 16
+[16-Jun-2026 17:46:30 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.categories' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\get_categories.php:6
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\get_categories.php(6): PDO->query('SELECT category...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\get_categories.php on line 6
+[16-Jun-2026 17:46:32 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.categories' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\get_categories.php:6
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\get_categories.php(6): PDO->query('SELECT category...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\get_categories.php on line 6
+[16-Jun-2026 17:47:02 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.categories' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\get_categories.php:6
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\get_categories.php(6): PDO->query('SELECT category...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\get_categories.php on line 6
+[16-Jun-2026 17:47:10 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.chatbot_qa' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php:16
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\chatbot.php(16): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php on line 16
+[16-Jun-2026 17:47:17 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.chatbot_qa' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php:16
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\chatbot.php(16): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php on line 16
+[16-Jun-2026 17:47:24 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.commands' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\admin\index.php:24
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\admin\index.php(24): PDO->query('SELECT COUNT(*)...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\admin\index.php on line 24
+[16-Jun-2026 17:47:32 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'devops_handbook.commands' doesn't exist in engine in C:\xampp-7\htdocs\devops_handbook\admin\index.php:24
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\admin\index.php(24): PDO->query('SELECT COUNT(*)...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\admin\index.php on line 24
+[19-Jun-2026 22:08:36 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'devops_handbook.commands' doesn't exist in C:\xampp-7\htdocs\devops_handbook\admin\index.php:24
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\admin\index.php(24): PDO->query('SELECT COUNT(*)...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\admin\index.php on line 24
+[19-Jun-2026 22:08:42 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'devops_handbook.categories' doesn't exist in C:\xampp-7\htdocs\devops_handbook\get_categories.php:6
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\get_categories.php(6): PDO->query('SELECT category...')
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\get_categories.php on line 6
+[19-Jun-2026 22:08:51 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'devops_handbook.chatbot_qa' doesn't exist in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php:16
+Stack trace:
+#0 C:\xampp-7\htdocs\devops_handbook\user\chatbot.php(16): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp-7\htdocs\devops_handbook\user\chatbot.php on line 16
